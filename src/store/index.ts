@@ -1,15 +1,17 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+// Global app stores
+import AuthStore from '@/stores/auth';
 
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+// Instantiate the store.
+Vue.use(Vuex);
+
+// Wire up.
+const store = new Vuex.Store({
   modules: {
-  }
-})
+    auth: AuthStore,
+  },
+});
+
+export default store;
