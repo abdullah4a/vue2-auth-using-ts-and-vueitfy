@@ -2,52 +2,53 @@
   <v-app>
 
     <!-- Header bar -->
-    <v-toolbar dark flat height="70">
+<!--    <v-toolbar height="66px">-->
 
-      <!-- Mobile nav toggle -->
-      <v-btn v-if="isMobile" icon @click.stop="toggleNavDrawer" >
-        <v-icon>menu</v-icon>
-      </v-btn>
+<!--      &lt;!&ndash; Mobile nav toggle &ndash;&gt;-->
+<!--      <v-btn v-if="isMobile" icon @click.stop="toggleNavDrawer">-->
+<!--        <v-app-bar-nav-icon></v-app-bar-nav-icon>-->
+<!--      </v-btn>-->
 
-      <!-- Brand -->
-      <v-toolbar-title>
-        <router-link to="/" class="header__logo-link">
-          <AppLogo color="#ffffff" width="90" />
-        </router-link>
-      </v-toolbar-title>
+<!--      &lt;!&ndash; Brand &ndash;&gt;-->
+<!--      <v-toolbar-title>-->
+<!--        <router-link class="header__logo-link" to="/">-->
+<!--          <AppLogo color="#ffffff" width="90"/>-->
+<!--        </router-link>-->
+<!--      </v-toolbar-title>-->
 
-      <v-spacer />
+<!--      <v-spacer/>-->
 
-      <!-- User account -->
-      <v-toolbar-items>
-        <AccountNav />
-      </v-toolbar-items>
+<!--      &lt;!&ndash; User account &ndash;&gt;-->
+<!--      <v-toolbar-items>-->
+<!--        <AccountNav/>-->
+<!--      </v-toolbar-items>-->
 
-    </v-toolbar>
+<!--    </v-toolbar>-->
 
     <!-- Two column main layout -->
     <v-layout style="position:relative;">
 
       <!-- Global site nav -->
-      <SiteNav :drawerModel="_navDrawer" :isMobile="isMobile" :defaultMini="defaultMini" @toggleDrawer="toggleNavDrawer" />
+      <SiteNav :defaultMini="defaultMini" :drawerModel="_navDrawer" :isMobile="isMobile"
+               @toggleDrawer="toggleNavDrawer"/>
 
       <!-- Main content wrappers -->
-      <v-content class="grey lighten-4">
-        <v-container fluid style="padding:0;" class="fill-height">
+      <v-main class="grey lighten-4">
+        <v-container class="fill-height" fluid style="padding:0;">
 
           <!-- Router view content slot -->
-          <slot />
+          <slot/>
         </v-container>
-      </v-content>
+      </v-main>
     </v-layout>
   </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import {Component, Prop, Vue} from 'vue-property-decorator';
 
 import AccountNav from '@/components/nav/AccountNav.vue';
-import AppLogo from '@/components/branding/AppLogo.vue';
+import AppLogo from '@/components/nav/AppLogo.vue';
 import SiteNav from '@/components/nav/SiteNav.vue';
 
 @Component({
@@ -60,12 +61,8 @@ import SiteNav from '@/components/nav/SiteNav.vue';
 export default class DefaultLayout extends Vue {
   private navDrawer = false;
 
-  private toggleNavDrawer(visible: boolean): void {
-    this.navDrawer = visible;
-  }
-
   private get defaultMini(): boolean {
-    const { smAndUp, mdAndDown } = this.$vuetify.breakpoint;
+    const {smAndUp, mdAndDown} = this.$vuetify.breakpoint;
     return smAndUp && mdAndDown;
   }
 
@@ -80,12 +77,20 @@ export default class DefaultLayout extends Vue {
     return this.navDrawer;
   }
 
+  private toggleNavDrawer(visible: boolean): void {
+    this.navDrawer = visible;
+  }
+
 }
 </script>
 
 <style scoped>
 .header__logo-link {
   display: flex;
+}
+
+.tool-bar {
+  background-color: #027f84;
 }
 </style>
 

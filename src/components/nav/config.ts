@@ -1,5 +1,3 @@
-import I18n from '@/config/i18n';
-import {APP_FEATURE_FLAG} from '@/interfaces/featureFlag';
 import {LICENSE_MODULES} from '@/interfaces/licenseSubscription';
 import {APP_PERMISSIONS} from '@/interfaces/roles';
 import {Location} from 'vue-router';
@@ -15,7 +13,6 @@ interface NavigationItemNonDivider extends NavigationItemCommon {
     divider?: boolean;
     name: LICENSE_MODULES;
     permission?: APP_PERMISSIONS;
-    featureGate?: APP_FEATURE_FLAG;
     title: string;
 }
 
@@ -23,149 +20,62 @@ export type NavigationItem = NavigationItemNonDivider;
 
 export const NAVIGATION_ITEMS: NavigationItem[] = [
     {
-        icon: 'dashboard',
+        icon: 'mdi-view-dashboard',
         divider: true,
         name: LICENSE_MODULES.ALLOW,
-        permission: APP_PERMISSIONS.DASHBOARD,
-        title: I18n.tc('default.dashboard'),
+        title: "Dashboard",
         to: {name: 'home'},
     },
     {
-        icon: 'payments',
+        icon: 'mdi-calendar-clock-outline',
         divider: true,
         name: LICENSE_MODULES.ALLOW,
-        permission: APP_PERMISSIONS.REVENUE,
-        title: I18n.tc('default.revenue.revenue', 1),
-        items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.REVENUE,
-                title: I18n.tc('default.revenue.revenue', 2),
-                to: {name: 'revenues'},
-            },
-        ],
-    },
-    {
-        icon: 'business',
-        divider: true,
-        name: LICENSE_MODULES.ALLOW,
-        title: I18n.tc('default.customers', 2),
-        items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.CUSTOMER,
-                title: I18n.tc('default.customer.list'),
-                to: {name: 'customers.list'},
-            },  {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.CUSTOMER,
-                title: I18n.tc('default.customer.family'),
-                to: {name: 'customer.family.list'},
-            },
-        ],
-    },
-    {
-        icon: 'group',
-        divider: true,
-        name: LICENSE_MODULES.ALLOW,
-        title: I18n.tc('default.employee.title', 1),
-        items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.EMPLOYEE,
-                title: I18n.tc('default.employee.title', 2),
-                to: {name: 'users.list'},
-            },
-        ],
-    },
-    {
-        icon: 'supervisor_account',
-        divider: true,
-        name: LICENSE_MODULES.ALLOW,
-        title: I18n.tc('default.client.title', 2),
-        items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.CLIENT,
-                title: I18n.tc('default.client.title'),
-                to: {name: 'clients'},
-            },
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.LOCATION,
-                title: I18n.tc('default.branch.title'),
-                to: {name: 'locations'},
-            },
-        ],
-    },
-    {
-        icon: 'account_tree',
-        divider: true,
-        name: LICENSE_MODULES.ALLOW,
-        permission: APP_PERMISSIONS.SERVICE,
-        title: I18n.tc('default.category', 2), items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.SERVICE,
-                title: I18n.tc('default.category-list'),
-                to: {name: 'services'},
-            }],
+        title: 'Time Sheet',
+        to: {name: 'time.sheet'},
+
     }, {
-        icon: 'task',
+        icon: 'mdi-clock-outline',
         divider: true,
         name: LICENSE_MODULES.ALLOW,
-        permission: APP_PERMISSIONS.PERMISSION,
-        title: I18n.tc('default.permissions.title', 2), items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.PERMISSION,
-                title: I18n.tc('default.permissions.title') + ' ' + I18n.t('default.permissions.list'),
-                to: {name: 'permission.list'},
-            }],
+        title: 'Time Tracker',
+        to: {name: 'time.tracker'},
     }, {
-        icon: 'how_to_reg',
+        icon: 'mdi-calendar',
         divider: true,
         name: LICENSE_MODULES.ALLOW,
-        permission: APP_PERMISSIONS.ROLE,
-        title: I18n.tc('default.roles.title', 2), items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.ROLE,
-                title: I18n.tc('default.roles.title') + ' ' + I18n.t('default.permissions.list'),
-                to: {name: 'role.list'},
-            }],
+        title: "Calendar",
+        to: {name: 'home'},
     }, {
-        icon: 'reviews',
+        icon: 'mdi-clipboard-account-outline',
         divider: true,
         name: LICENSE_MODULES.ALLOW,
-        permission: APP_PERMISSIONS.CUSTOMER_REVIEW,
-        title: I18n.tc('default.customer-reviews.title', 2), items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.CUSTOMER_REVIEW,
-                title: I18n.tc('default.customer-reviews.title') + ' ' + I18n.t('default.permissions.list'),
-                to: {name: 'reviews'},
-            }],
+        title: "Dashboard",
+        to: {name: 'home'},
+    }, {
+        icon: 'mdi-clipboard-account-outline',
+        divider: true,
+        name: LICENSE_MODULES.ALLOW,
+        title: "Projects",
+        to: {name: 'home'},
+    }, {
+        icon: 'mdi-clipboard-account-outline',
+        divider: true,
+        name: LICENSE_MODULES.ALLOW,
+        title: "Team",
+        to: {name: 'home'},
+    }, {
+        icon: 'mdi-receipt-text-check-outline',
+        divider: true,
+        name: LICENSE_MODULES.ALLOW,
+        title: "Invoices"
+,        to: {name: 'home'},
     },
     {
-        icon: 'assignment',
-        name: LICENSE_MODULES.ALLOW,
-        title: I18n.tc('default.service'),
-        group: 'scheduling',
-        items: [
-            {
-                name: LICENSE_MODULES.ALLOW,
-                permission: APP_PERMISSIONS.SCHEDULING,
-                title: I18n.tc('default.scheduling'),
-                to: {name: 'scheduling.index'},
-            },
-        ],
-    },
-    {
-        icon: 'exit_to_app',
+        icon: 'mdi-logout',
+        divider: true,
         name: LICENSE_MODULES.ALLOW,
         permission: APP_PERMISSIONS.ALLOW,
-        title: I18n.tc('default.account.sign-out'),
+        title: "Logout",
         to: {name: 'auth.logout'},
     },
 ];

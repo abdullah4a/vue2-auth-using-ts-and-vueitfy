@@ -32,7 +32,7 @@ export default class CompanyConfirmationDialog extends Vue {
   @Prop({ type: Boolean, default: false })
   private readonly value: boolean;
 
-  private hideWarning: boolean = false;
+  private hideWarning = false;
 
   private get syncedValue(): boolean {
     return this.value;
