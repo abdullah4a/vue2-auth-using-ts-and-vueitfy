@@ -9,7 +9,6 @@ const routes: RouteConfig[] = [
         name: 'home',
         component: Home,
         meta: {
-            layout: 'app-layout-default',
             LICENSE: LICENSE_MODULES.ALLOW,
             PERMISSION: {
                 name: 'ALLOW',

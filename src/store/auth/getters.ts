@@ -1,10 +1,9 @@
 import {GetterTree} from 'vuex';
-import {RootState} from '../types';
 import {AuthState} from './types';
 import {groupBy} from 'lodash';
 import {CrudAction, APP_PERMISSIONS, IPermission} from '@/interfaces/roles';
 
-export const getters: GetterTree<AuthState, RootState> = {
+export const getters: GetterTree<AuthState, any> = {
     token(state) {
         return state.token;
     },
@@ -13,7 +12,7 @@ export const getters: GetterTree<AuthState, RootState> = {
         return state.user;
     },
 
-    userSelectedCompany(state) {
+    userSelectedCompany() {
         return null;
     },
 
@@ -38,8 +37,8 @@ export const getters: GetterTree<AuthState, RootState> = {
     },
 
     userPermissionsByModule(_, getter): Record<string, IPermission[]> {
-        return groupBy(getter.userPermissions as IPermission[], ({code}) =>
-            code.slice(code.indexOf(':') + 1, code.lastIndexOf(':')),
+        return groupBy(getter.userPermissions as IPermission[], (permission: IPermission) =>
+            permission.code.slice(permission.code.indexOf(':') + 1, permission.code.lastIndexOf(':')),
         );
     },
 

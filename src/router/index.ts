@@ -5,7 +5,7 @@ import Router, {RouteConfig} from 'vue-router';
 // import AccountRoutes from '@/routes/account';
 import AuthRoutes from './auth';
 import DefaultRoutes from './default';
-// import CustomersRoutes from './customers';
+import TimeRoutes from './time';
 // import CustomerSignUpRoutes from './customerSignUpRoute';
 // import UsersRoutes from './users';
 // import PermissionRoutes from './permissions';
@@ -30,25 +30,25 @@ Vue.use(Router);
 // Combine Routes
 let allRoutes: RouteConfig[] = [];
 allRoutes = allRoutes.concat(
-    // AccountRoutes,
-    AuthRoutes,
-    DefaultRoutes,
-    // NotFoundRoutes,
-    // SchedulingRoutes,
-    // AccessDenied,
-    // CustomersRoutes,
-    // CustomerSignUpRoutes,
-    // ApiConfigurationRoutes,
-    // UsersRoutes,
-    // AppointmentsRoutes,
-    // RevenuesRoutes,
-    // categoryRoutes,
-    // ClientsRoutes,
-    // locationRoute,
-    // PermissionRoutes,
-    // rolesRoutes,
-    // reviewRoutes,
-    // CustomerFamily,
+  // AccountRoutes,
+  AuthRoutes,
+  DefaultRoutes,
+  TimeRoutes,
+  // SchedulingRoutes,
+  // AccessDenied,
+  // CustomersRoutes,
+  // CustomerSignUpRoutes,
+  // ApiConfigurationRoutes,
+  // UsersRoutes,
+  // AppointmentsRoutes,
+  // RevenuesRoutes,
+  // categoryRoutes,
+  // ClientsRoutes,
+  // locationRoute,
+  // PermissionRoutes,
+  // rolesRoutes,
+  // reviewRoutes,
+  // CustomerFamily,
 );
 
 const router = new Router({
@@ -64,51 +64,51 @@ const router = new Router({
     },
 });
 
-router.beforeEach(async (to, from, next) => {
-    to.meta!.referer = from;
-
-    const guest = !!to.meta!.guest;
-    const hasToken = store.getters['auth/token'];
-    const user = store.getters['auth/user'];
-
-    if (guest && hasToken) {
-        return next({name: 'home'});
-    } else if (!hasToken && to.name === 'scheduling.index' && from.name === 'auth.signup') {
-        return next({name: 'scheduling.index'});
-    }
-
-    if (guest) {
-        return next();
-    }
-    if (hasToken) {
-        const validUser =
-            await store.dispatch('auth/validate');
-        if (validUser) {
-            // const hasPermission = await validatePermission(to);
-            // if (!hasPermission) {
-            //     if ((from.name === 'auth.logout' || from.name === 'auth.login') && to.name === 'home') {
-            //         return next({name: 'scheduling.index'});
-            //     } else {
-            //         return next({
-            //             name: 'access-denied',
-            //             query: {redirect: getFromRoutePath(from), error: 'permission'},
-            //         });
-            //     }
-            return next({name: 'home'})
-        }
-        // if (!validateFeatureGate(to)) {
-        //     return next({name: 'not-found', params: {0: to.path}});
-        // }
-        // await loadLocaleMessages(to);
-        return next();
-    }
-
-    redirectToLogin();
-
-    function redirectToLogin() {
-        const returnPath = to.fullPath.indexOf('auth/') === 1 ? null : to.fullPath;
-        next({name: 'auth.login', query: {next: returnPath}});
-    }
-});
+// router.beforeEach(async (to, from, next) => {
+//     to.meta!.referer = from;
+//
+//     const guest = !!to.meta!.guest;
+//     const hasToken = store.getters['auth/token'];
+//     const user = store.getters['auth/user'];
+//
+//     if (guest && hasToken) {
+//         return next({name: 'home'});
+//     } else if (!hasToken && to.name === 'scheduling.index' && from.name === 'auth.signup') {
+//         return next({name: 'scheduling.index'});
+//     }
+//
+//     if (guest) {
+//         return next();
+//     }
+//     if (hasToken) {
+//         const validUser =
+//             await store.dispatch('auth/validate');
+//         if (validUser) {
+//             // const hasPermission = await validatePermission(to);
+//             // if (!hasPermission) {
+//             //     if ((from.name === 'auth.logout' || from.name === 'auth.login') && to.name === 'home') {
+//             //         return next({name: 'scheduling.index'});
+//             //     } else {
+//             //         return next({
+//             //             name: 'access-denied',
+//             //             query: {redirect: getFromRoutePath(from), error: 'permission'},
+//             //         });
+//             //     }
+//             return next({name: 'home'})
+//         }
+//         // if (!validateFeatureGate(to)) {
+//         //     return next({name: 'not-found', params: {0: to.path}});
+//         // }
+//         // await loadLocaleMessages(to);
+//         return next();
+//     }
+//
+//     redirectToLogin();
+//
+//     function redirectToLogin() {
+//         const returnPath = to.fullPath.indexOf('auth/') === 1 ? null : to.fullPath;
+//         next({name: 'auth.login', query: {next: returnPath}});
+//     }
+// });
 
 export default router;

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 // Global app stores
-import AuthStore from '@/stores/auth';
+import AuthStore from './auth';
 
 // Instantiate the store.
 Vue.use(Vuex);

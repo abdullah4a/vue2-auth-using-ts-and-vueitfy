@@ -14,17 +14,17 @@
       @mouseover.native="hoverShow"
       @mouseleave.native="hoverHide"
   >
-    <v-list id="navigationList" class="py-0 app-nav__main">
+    <v-list id="navigationList" class=" app-nav__main">
       <!-- Minimize toggle non-mobile -->
       <template v-if="!_isMobile">
         <v-list-item v-if="mini || wasMini">
           <v-tooltip right>
             <template v-slot:activator="{ on }">
               <v-btn icon v-on="on" @click.stop="expand">
-                <v-icon>chevron_right</v-icon>
+                <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </template>
-            <span>{{ $t('default.site-nav.keep-menu-expanded') }}</span>
+            <span>{{ 'Expand' }}</span>
           </v-tooltip>
         </v-list-item>
 
@@ -32,10 +32,10 @@
           <v-tooltip right>
             <template v-slot:activator="{ on }">
               <v-btn icon v-on="on" @click.stop="collapse">
-                <v-icon>chevron_left</v-icon>
+                <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
             </template>
-            <span>{{ $t('default.site-nav.collapse-menu') }}</span>
+            <span>{{ 'Collapse' }}</span>
           </v-tooltip>
         </v-layout>
       </template>
@@ -46,7 +46,7 @@
           <v-list-item-content/>
           <v-list-item-action>
             <v-btn icon @click.stop="toggleNavDrawer(false)">
-              <v-icon>close</v-icon>
+              <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-list-item-action>
         </v-list-item>
@@ -68,7 +68,7 @@
           <template v-slot:activator>
             <v-list-item>
               <v-list-item-content>
-                <v-list-item-title :dis-test-id="formatDisTestId(BASE_DIS_TEST_ID, nav.title)" class="font-weight-bold">
+                <v-list-item-title class="font-weight-bold mx-auto">
                   {{ nav.title }}
                 </v-list-item-title>
               </v-list-item-content>
@@ -87,7 +87,7 @@
               <template v-slot:activator>
                 <v-list-item>
                   <v-list-item-content>
-                    <v-list-item-title :dis-test-id="formatDisTestId(BASE_DIS_TEST_ID, nav.title, item.title)">
+                    <v-list-item-title>
                       {{ item.title }}
                     </v-list-item-title>
                   </v-list-item-content>
@@ -107,7 +107,6 @@
               >
                 <v-list-item-content>
                   <v-list-item-title
-                      :dis-test-id="formatDisTestId(BASE_DIS_TEST_ID, nav.title, item.title, subItem.title)"
                       class="caption"
                   >
                     {{ subItem.title }}
@@ -124,7 +123,7 @@
                 :to="item.to"
             >
               <v-list-item-content>
-                <v-list-item-title :dis-test-id="formatDisTestId(BASE_DIS_TEST_ID, nav.title, item.title)">
+                <v-list-item-title>
                   {{ item.title }}
                 </v-list-item-title>
               </v-list-item-content>
@@ -137,7 +136,6 @@
             :key="`subItem-${index}`"
             :active-class="activeClass"
             :class="$route.name === nav.to.name && activeClassExact"
-            :dis-test-id="formatDisTestId(BASE_DIS_TEST_ID, nav.title)"
             :to="nav.to"
         >
           <v-list-item-action>
@@ -153,7 +151,7 @@
     <!-- App Version, always at the bottom -->
     <v-list>
       <v-list-item>
-        <v-list-item-content class="caption">{{ $t('default.version', {version: APP_VERSION}) }}</v-list-item-content>
+        <v-list-item-content class="caption">{{ 'App version ' + APP_VERSION }}</v-list-item-content>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -166,7 +164,6 @@ import {mapGetters} from 'vuex';
 import {NavigationItem, NAVIGATION_ITEMS} from './config';
 import {cloneDeep} from 'lodash';
 import {LICENSE_MODULES} from '@/interfaces/licenseSubscription';
-import {FormatIds} from '@/helpers/automation';
 import {CrudAction, APP_PERMISSIONS} from '@/interfaces/roles';
 
 @Component({
@@ -184,11 +181,9 @@ export default class SiteNav extends Vue {
   private readonly isAuthorizedUserAction: (moduleName: string, action: CrudAction) => boolean;
   private mini = false;
   private wasMini = false;
-  private activeGroupClass: string = 'dis-navgroup--active';
-  private activeClass: string = 'dis-navitem--active';
-  private activeClassExact: string = 'dis-navitem__exact--active';
-
-  private BASE_DIS_TEST_ID: string = 'NAV_SITE_NAV';
+  private activeGroupClass = 'pro-ally-navgroup--active';
+  private activeClass = 'pro-ally-navitem--active';
+  private activeClassExact = 'pro-ally-navitem__exact--active';
 
   @Prop({default: true, required: true})
   private drawerModel!: boolean;
@@ -302,22 +297,17 @@ export default class SiteNav extends Vue {
   private toggleNavDrawer(visible: boolean) {
     this.$emit('toggleDrawer', visible);
   }
-
-  private formatDisTestId(...disTestIdParts: string[]) {
-    return FormatIds.FormatMultiLevelDisTestId(disTestIdParts);
-  }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .app-nav__drawer {
-  background-color: #000c19;
-  display: flex;
+  background-color: #027f84;
   flex-direction: column;
 }
 
 /* Grow main nav so version & © stays at the bottom */
-.dis-nav__main {
+.pro-ally-nav__main {
   flex: 1;
 }
 
@@ -327,11 +317,11 @@ export default class SiteNav extends Vue {
 }
 
 /* Active nav item */
->>> .dis-navitem--active {
+> > > .pro-ally-navitem--active {
   color: inherit;
 }
 
->>> .dis-navitem__exact--active {
+> > > .pro-ally-navitem__exact--active {
   border-left: 3px solid rgba(255, 255, 255, 0.4);
   color: rgba(255, 255, 255, 0.7);
 }
@@ -347,7 +337,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 0;
   background: transparent;
 }
 </style>

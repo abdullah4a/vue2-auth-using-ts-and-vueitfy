@@ -1,5 +1,5 @@
 <template>
-  <app-page :loading="loading" :title="'Dashboard'">
+  <app-page :loading="loading" :title="'Time Sheet'">
     <template v-slot:header>
       <v-btn outlined primary> Add New</v-btn>
     </template>
@@ -14,3 +14,7 @@ export default class Home extends Vue {
   private loading = false;
 }
 </script>
+
+<style scoped>
+
+</style>

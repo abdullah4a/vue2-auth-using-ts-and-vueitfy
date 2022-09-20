@@ -57,20 +57,12 @@ export interface ITypeMappedPermissionGroup {
 export enum APP_PERMISSIONS {
     ALLOW = 'ALLOW',
     DASHBOARD = 'DASHBOARD',
-    CUSTOMER = 'CUSTOMER',
-    EMPLOYEE = 'EMPLOYEE',
-    CLIENT = 'CLIENT',
-    LOCATION = 'LOCATION',
-    SERVICE = 'SERVICE',
-    REVENUE = 'REVENUE',
-    ROLE = 'ROLE',
-    PERMISSION = 'PERMISSION',
-    SCHEDULING = 'SCHEDULING',
-    ADMIN = 'ADMIN',
-    STAFF = 'STAFF',
-    REVIEW = 'REVIEW',
-    API_CONFIGURATION = 'API_CONFIGURATION',
-    CUSTOMER_REVIEW = 'CUSTOMER_REVIEW',
+    TRACKER = 'TRACKER',
+    SHEET = 'SHEET',
+    USER = 'USER',
+    CALENDER = 'CALENDER',
+    INVOICES = 'INVOICES',
+    PROJECT = 'PROJECT',
 }
 
 export interface IRolePermission {

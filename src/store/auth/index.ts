@@ -1,14 +1,13 @@
-import AuthStorage from '@/services/auth-storage';
-import { Module } from 'vuex';
-import { RootState } from '../types';
-import { AuthState } from './types';
-import { getters } from './getters';
-import { actions } from './actions';
-import { mutations } from './mutations';
+// import AuthStorage from '@/services/auth-storage';
+import {Module} from 'vuex';
+import {AuthState} from './types';
+import {getters} from './getters';
+import {actions} from './actions';
+import {mutations} from './mutations';
 
 // STATE
 const state: AuthState = {
-  token: AuthStorage.getToken(),
+  token: null,
   user: null,
   company: null,
   uploading: false,
@@ -18,7 +17,7 @@ const state: AuthState = {
 };
 
 // STORE
-const AuthStore: Module<AuthState, RootState> = {
+const AuthStore: Module<AuthState, any> = {
   namespaced: true,
   state,
   getters,
