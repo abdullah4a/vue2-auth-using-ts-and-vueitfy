@@ -5,13 +5,14 @@ import Vue from 'vue';
  */
 
 // Layouts and templates
-import DefaultLayout from "@//layouts/DefaultLayout.vue"
-import AuthLayout from "@//layouts/AuthLayout.vue"
-import NotFoundLayout from "@//layouts/NotFoundLayout.vue"
-import AccessDenied from "@//layouts/AccessDenied.vue"
+import DefaultLayout from '@//layouts/DefaultLayout.vue';
+import AuthLayout from '@//layouts/AuthLayout.vue';
+import NotFoundLayout from '@//layouts/NotFoundLayout.vue';
+import AccessDenied from '@//layouts/AccessDenied.vue';
 /**
  * Global registration
  */
+import PageContent from '@/components/content/PageContent.vue';
 
 // Global layouts and templates
 Vue.component('app-layout-404', NotFoundLayout);
@@ -23,7 +24,7 @@ Vue.component('app-layout-access-denied', AccessDenied);
 Vue.component('app-date-input',);
 Vue.component('app-date-range-picker',);
 Vue.component('app-date-range-input',);
-Vue.component('app-page',);
+Vue.component('app-page', PageContent);
 Vue.component('app-data-table',);
 Vue.component('app-todo',);
 Vue.component('app-modal',);

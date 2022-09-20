@@ -1,21 +1,16 @@
-import AuthAPI from '@/services/api/auth.service';
+import AuthAPI from '@/services/api/auth.service.ts';
 import {ActionTree} from 'vuex';
-import {RootState} from '../types';
 import {AuthState} from './types';
 import {
-    DELETE_TOKEN,
     LOGOUT,
     SAVE_COMPANY,
     SAVE_TOKEN,
     SAVE_USER,
-    SET_SELECTED_BRANCHES,
     SET_UPLOADING,
-    SET_USER_BRANCHES,
-} from './mutations';
-import * as Sentry from '@sentry/browser';
-import {branchFilter} from '@/helpers/branch-filter';
 
-export const actions: ActionTree<AuthState, RootState> = {
+} from './mutations';
+
+export const actions: ActionTree<AuthState, any> = {
     async login({commit, dispatch}, credentials) {
         try {
             const resp = await AuthAPI.login(credentials);
@@ -38,7 +33,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         return AuthAPI.logout();
     },
 
-    async sendPasswordReset({commit}, data) {
+    async sendPasswordReset(context, data) {
         try {
             const resp = await AuthAPI.sendPasswordReset(data);
             return resp.data;
@@ -59,37 +54,16 @@ export const actions: ActionTree<AuthState, RootState> = {
         return successful;
     },
 
-    async getUser({commit, dispatch}) {
-        try {
+    async getUser({commit}) {
+        // try {
             const data = await AuthAPI.me();
-            if (data) {
-                const {defaultBranch} = data;
-                const allBranches: Array<{
-                    text: string;
-                    value: number;
-                }> = defaultBranch ? [branchFilter(defaultBranch)] : [];
-                if (!!defaultBranch?.webId) {
-                    commit(SET_SELECTED_BRANCHES, [defaultBranch?.webId]);
-                }
-                commit(SET_USER_BRANCHES, allBranches);
-            }
             commit(SAVE_USER, data);
-
-            // Set Sentry user meta and tag enterpriseId
-            Sentry.configureScope((scope) => {
-                scope.setUser({
-                    id: `${data.webId}`,
-                    email: data.email,
-                });
-                scope.setTag('client_id', `${data.clientId}`);
-                scope.setTag('customer_id', `${data.customerId}`);
-            });
             return data;
-        } catch (error) {
-            commit(LOGOUT);
-            commit(DELETE_TOKEN);
-            throw error.response ? error.response.data : error.message;
-        }
+        // } catch (error) {
+        //     commit(LOGOUT);
+        //     commit(DELETE_TOKEN);
+        //     throw error.response ? error.response.data : error.message;
+        // }
     },
 
     async getUserCompany({commit}, userId: number) {
@@ -114,20 +88,20 @@ export const actions: ActionTree<AuthState, RootState> = {
             email: fullUser.email,
             status: fullUser.status,
             phoneNumber: fullUser.phoneNumber,
-            customerId: fullUser.customerId,
+            // customerId: fullUser.customerId,
             birthday: fullUser.birthday,
         };
 
         commit(SET_UPLOADING, true);
 
         return AuthAPI.update(id, requestData).then(
-            (data) => {
+            (data: any) => {
                 commit(SAVE_USER, data);
                 commit(SET_UPLOADING, false);
 
                 return data;
             },
-            (error) => {
+            (error: any) => {
                 commit(SET_UPLOADING, false);
                 throw new Error(error.response.data);
             },
@@ -136,7 +110,7 @@ export const actions: ActionTree<AuthState, RootState> = {
 
     validate({dispatch, state}): Promise<any> {
         if (!state.token) {
-          return Promise.resolve(false);
+            return Promise.resolve(false);
         }
 
         if (!state.user) {
